@@ -2,9 +2,6 @@ package com.zhang.pojo;
 
 import java.util.Date;
 
-/**
- * 用户实体类
- */
 public class User {
     private Integer id; // id
     private String userCode; // 用户编码
@@ -53,10 +50,6 @@ public class User {
     }
 
     public Integer getAge() {
-        /*
-         * long time = System.currentTimeMillis()-birthday.getTime(); Integer age =
-         * Long.valueOf(time/365/24/60/60/1000).IntegerValue();
-         */
         Date date = new Date();
         Integer age = date.getYear() - birthday.getYear();
         return age;

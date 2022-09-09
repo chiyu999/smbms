@@ -1,4 +1,4 @@
-package com.zhang.dao.base;
+package com.zhang.dao;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -7,17 +7,16 @@ import java.util.Properties;
 
 //基础工具类
 public class BaseDao {
+    private static String driver;
+    private static String url;
+    private static String userName;
+    private static String password;
     /**
      * 在这个类加载的时候就进行数据库连接资源的初始化
      */
     static {
         init();
     }
-
-    private static String driver;
-    private static String url;
-    private static String userName;
-    private static String password;
 
     /**
      * 初始化数据库连接参数
@@ -35,8 +34,10 @@ public class BaseDao {
         userName = properties.getProperty("userName");
         password = properties.getProperty("password");
     }
+
     /**
      * 获取数据库连接
+     * @return Connection
      */
     public static Connection getConnection(){
         Connection connection = null;
@@ -49,13 +50,23 @@ public class BaseDao {
         }
         return connection;
     }
+
     /**
      * 查询公共类
+     * @param connection
+     * @param pstm
+     * @param rs
+     * @param sql
+     * @param parms
+     * @return ResultSet
      */
     public static ResultSet execute(Connection connection, PreparedStatement pstm,ResultSet rs,String sql,Object[] parms){
         try {
+            //预编译sql
             pstm = connection.prepareStatement(sql);
+            //设置预编译的参数
             for (int i = 0; i < parms.length; i++) {
+                //占位符从1开始，而数组从0开始
                 pstm.setObject(i+1,parms[i]);
             }
             rs = pstm.executeQuery();
@@ -68,6 +79,11 @@ public class BaseDao {
 
     /**
      * 编写增删改公共类
+     * @param connection
+     * @param pstm
+     * @param sql
+     * @param params
+     * @return int
      */
     public static int execute(Connection connection,PreparedStatement pstm, String sql,Object[] params) {
         int updateRows = 0;
@@ -88,13 +104,14 @@ public class BaseDao {
      * @param connection
      * @param pstm
      * @param rs
-     * @return
+     * @return boolean
      */
     public static boolean closeResource(Connection connection,PreparedStatement pstm,ResultSet rs){
         boolean flag = true;
         if(rs != null){
             try {
                 rs.close();
+                //如果关闭不成功的话可以设置为空，gc回收机制会把他回收，不要造成资源浪费
                 rs = null;//GC回收
             } catch (SQLException e) {
                 e.printStackTrace();
