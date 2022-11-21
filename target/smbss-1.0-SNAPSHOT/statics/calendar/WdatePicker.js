@@ -1,7 +1,3 @@
-/*
- * My97 DatePicker 4.7 Beta5
- * License: http://www.my97.net/dp/license.asp
- */
 var $dp,WdatePicker;(function(){var _={
 $wdate:true,
 $dpPath:"",

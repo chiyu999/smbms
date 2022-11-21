@@ -1,8 +1,7 @@
-<<<<<<< HEAD
+
 <html>
 <body>
 <h2>Hello World!</h2>
-=======
 <%--
   Created by IntelliJ IDEA.
   User: k-changan
