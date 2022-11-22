@@ -60,6 +60,7 @@
         <servlet-name>LogoutServlet</servlet-name>
         <url-pattern>/logout.do</url-pattern>
     </servlet-mapping>
+
     <!--用户操作Servlet-->
     <servlet>
         <servlet-name>UserServlet</servlet-name>
@@ -68,6 +69,16 @@
     <servlet-mapping>
         <servlet-name>UserServlet</servlet-name>
         <url-pattern>/jsp/user.do</url-pattern>
+    </servlet-mapping>
+
+    <!--供应商操作sevlet-->
+    <servlet>
+        <servlet-name>ProviderServlet</servlet-name>
+        <servlet-class>com.zhang.servlet.provider.ProviderServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ProviderServlet</servlet-name>
+        <url-pattern>/jsp/provider.do</url-pattern>
     </servlet-mapping>
 
 <!--    <jsp-config>-->
