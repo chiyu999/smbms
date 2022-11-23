@@ -45,7 +45,7 @@ public interface ProviderService {
      * @return
      * @throws SQLException
      */
-    public boolean deleteProviderById(int providerId) throws SQLException;
+    public boolean deleteProviderById(int providerId) throws Exception;
 
 
 }

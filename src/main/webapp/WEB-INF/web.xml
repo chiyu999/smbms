@@ -81,6 +81,16 @@
         <url-pattern>/jsp/provider.do</url-pattern>
     </servlet-mapping>
 
+    <!--订单操作sevlet-->
+    <servlet>
+        <servlet-name>BillServlet</servlet-name>
+        <servlet-class>com.zhang.servlet.bill.BillServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>BillServlet</servlet-name>
+        <url-pattern>/jsp/bill.do</url-pattern>
+    </servlet-mapping>
+
 <!--    <jsp-config>-->
 <!--        <jsp-property-group>-->
 <!--            <display-name>HtmlConfiguration</display-name>-->
