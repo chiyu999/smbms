@@ -1,6 +1,8 @@
 package com.zhang.service.provider;
 
 import com.zhang.dao.BaseDao;
+import com.zhang.dao.bill.BillDao;
+import com.zhang.dao.bill.BillDaoImpl;
 import com.zhang.dao.provider.ProviderDaoImpl;
 import com.zhang.pojo.Provider;
 
@@ -16,7 +18,7 @@ public class ProviderServiceImpl implements ProviderService{
     }
 
     /**
-     * 根据条件获取用户列表
+     * 根据条件获取供应商列表
      * @param proCode
      * @param proName
      * @return
@@ -117,22 +119,29 @@ public class ProviderServiceImpl implements ProviderService{
 
     /**
      * 删除供应商
+     * 业务：根据ID删除供应商表的数据之前，需要先去订单表里进行查询操作
+     * 若订单表中无该供应商的订单数据，则可以删除
+     * 若有该供应商的订单数据，则不可以删除
      * @param providerId
      * @return
      * @throws SQLException
      */
     @Override
-    public boolean deleteProviderById(int providerId) throws SQLException {
+    public boolean deleteProviderById(int providerId) throws Exception {
         boolean flag = false;
+        int billCount = -1;
         Connection connection = null;
         try {
             connection = BaseDao.getConnection();
             connection.setAutoCommit(false);
-            int i = providerDao.deleteProviderById(connection, providerId);
-            connection.commit();
-            if (i > 0) {
-                flag = true;
+            BillDao billDao = new BillDaoImpl();
+            billCount = billDao.getBillCountByProviderId(connection, String.valueOf(providerId));
+            if(billCount == 0){
+                if (providerDao.deleteProviderById(connection,providerId) >0){
+                    flag = true;
+                }
             }
+            connection.commit();
         }catch (SQLException e){
             connection.commit();
             e.printStackTrace();

@@ -21,7 +21,7 @@ public class Bill {
     private String productUnit; //商品单位
     private BigDecimal productCount; //商品数量
     private BigDecimal totalPrice; //总金额
-    private Integer isPayment; //是否支付
+    private Integer isPayment; //是否支付 1未支付 2已支付
     private Integer providerId; //供应商ID
     private Integer createdBy; //创建者
     private Date creationDate; //创建时间
